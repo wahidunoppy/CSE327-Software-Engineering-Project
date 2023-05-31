@@ -1,0 +1,1 @@
+String loginUrlImage = 'https://www.google.com/search?q=company+4k+images&rlz=1C1ONGR_enBD1045BD1045&sxsrf=APwXEdd-BGoc6nxkJWYaigFzewv48hTTNA:1685564396279&source=lnms&tbm=isch&sa=X&ved=2ahUKEwi4-dfYsKD_AhXn1jgGHXSdC3kQ_AUoAXoECAEQAw&biw=1663&bih=841&dpr=1.15#imgrc=pOFVbkBCzUx9gM';
