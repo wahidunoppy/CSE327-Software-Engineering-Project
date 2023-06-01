@@ -14,6 +14,11 @@ class _LoginState extends State<Login> with TickerProviderStateMixin{
   late Animation<double> _animation;
   late AnimationController _animationController;
 
+  final TextEditingController _emailTextController = TextEditingController(text: '');
+  FocusNode _passFocusNode = FocusNode();
+
+  final _loginFormkey = GlobalKey<FormState>();
+
   @override
   void dispose() {
     _animationController.dispose();
@@ -61,9 +66,48 @@ class _LoginState extends State<Login> with TickerProviderStateMixin{
                child: ListView(
                  children: [
                    Padding(
-                     padding: const EdgeInsets.only(left: 70, right: 70),
-                     child: Image.asset('assets/images/login.png'),
-                   )
+                     padding: const EdgeInsets.only(left: 80, right: 80),
+                     child: Image.asset('assets/images/Teacher student-pana.png'),
+                   ),
+                   const SizedBox(height: 15,),
+                   Form(
+                     key: _loginFormkey,
+                     child: Column(
+                       children: [
+                         TextFormField(
+                           textInputAction: TextInputAction.next,
+                           onEditingComplete: () => FocusScope.of(context).requestFocus(_passFocusNode),
+                           keyboardType: TextInputType.emailAddress,
+                           controller: _emailTextController,
+                           validator: (value)
+                           {
+                             if(value!.isEmpty || !value.contains('@'))
+                               {
+                                 return 'Please enter a valid Email address';
+                               }
+                             else{
+                               return null;
+                             }
+                           },
+                           style: const TextStyle(color: Colors.white),
+                           decoration: const InputDecoration(
+                             hintText: 'Enter your Email',
+                             hintStyle: TextStyle(color: Colors.white),
+                             enabledBorder: UnderlineInputBorder(
+                               borderSide: BorderSide(color: Colors.white),
+                             ),
+                             focusedBorder: UnderlineInputBorder(
+                               borderSide: BorderSide(color: Colors.white),
+                             ),
+                             errorBorder: UnderlineInputBorder(
+                               borderSide: BorderSide(color: Colors.red),
+                             )
+                           ),
+                         )
+                       ],
+                     ),
+                   ),
+
                  ],
                ),
              ),
