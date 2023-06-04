@@ -1,5 +1,10 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:setp/ForgetPassword/forget_password_screen.dart';
+import 'package:setp/Services/global_methods.dart';
 
 import '../Services/global_variables.dart';
 
@@ -11,14 +16,16 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> with TickerProviderStateMixin{
+
   late Animation<double> _animation;
   late AnimationController _animationController;
 
   final TextEditingController _emailTextController = TextEditingController(text: '');
   final TextEditingController _passTextController = TextEditingController(text: '');
   final FocusNode _passFocusNode = FocusNode();
+  bool _isLoading =false;
   bool _obscureText = true;
-
+  final FirebaseAuth _auth = FirebaseAuth.instance;
   final _loginFormkey = GlobalKey<FormState>();
 
   @override
@@ -42,6 +49,33 @@ class _LoginState extends State<Login> with TickerProviderStateMixin{
     });
     _animationController.forward();
     super.initState();
+  }
+
+  void _submitFormOnLogin() async
+  {
+    final isValid = _loginFormkey.currentState!.validate();
+    if(isValid)
+{
+  setState(() {
+    _isLoading = true;
+  });
+  try{
+    await _auth.signInWithEmailAndPassword(
+      email: _emailTextController.text.trim().toLowerCase(),
+      password: _passTextController.text.trim(),
+    );
+    Navigator.canPop(context) ? Navigator.pop(context) : null;
+  }catch(error){
+    setState(() {
+    _isLoading =false;
+    });
+    GlobalMethod.showErrorDialog(error: error.toString(), ctx: context);
+    print('Error Occurred $error');
+  }
+}
+    setState(() {
+      _isLoading =false;
+    });
   }
   @override
   Widget build(BuildContext context) {
@@ -93,7 +127,7 @@ class _LoginState extends State<Login> with TickerProviderStateMixin{
                            },
                            style: const TextStyle(color: Colors.white),
                            decoration: const InputDecoration(
-                             hintText: 'Enter your Email',
+                             hintText: 'Email',
                              hintStyle: TextStyle(color: Colors.white),
                              enabledBorder: UnderlineInputBorder(
                                borderSide: BorderSide(color: Colors.white),
@@ -149,14 +183,60 @@ class _LoginState extends State<Login> with TickerProviderStateMixin{
                                ),
                                errorBorder: const UnderlineInputBorder(
                                  borderSide: BorderSide(color: Colors.red),
+                               ),
+                           ),
+                         ),
+                         const SizedBox(height: 15,),
+                         Align(
+                           alignment: Alignment.bottomRight,
+                           child:TextButton(
+                             onPressed: ()
+                             {
+                               Navigator.push(context, MaterialPageRoute(builder: (context) =>ForgetPassword()));
+
+                             },
+                             child: const Text(
+                               'Forget password?',
+                               style: TextStyle(
+                                 color: Colors.white,
+                                 fontSize: 17,
+                                 fontStyle: FontStyle.italic,
+                               ),
+                             ),
+                           ),
+                         ),
+                         const SizedBox(height: 10,),
+                         MaterialButton(
+                             onPressed: _submitFormOnLogin,
+                           color: Colors.orange, //Login button color
+                           elevation: 6,
+                           shape: RoundedRectangleBorder(
+                             borderRadius: BorderRadius.circular(13),
+                           ),
+                         child: const Padding(
+                           padding: EdgeInsets.symmetric(vertical: 14),
+                           child: Row(
+                             mainAxisAlignment: MainAxisAlignment.center,
+                             children: [
+                               Text(
+                                 'Login',
+                                 style: TextStyle(
+                                   color: Colors.white,
+                                   fontWeight: FontWeight.bold,
+                                   fontSize: 20,
+                                 ),
                                )
+                             ],
                            ),
                          ),
 
+
+
+
+                         )
                        ],
                      ),
                    ),
-
                  ],
                ),
              ),
