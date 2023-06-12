@@ -55,6 +55,64 @@ class _SignUpState extends State<SignUp>with TickerProviderStateMixin {
     _animationController.forward();
     super.initState();
   }
+   void _showImageDialog()
+   {
+     showDialog(
+         context: context,
+         builder: (context)
+         {
+           return AlertDialog(
+             title: Text('Please choose an option'),
+             content: Column(
+               mainAxisSize: MainAxisSize.min,
+               children: [
+                 InkWell(
+                   onTap:(){
+                     //Create get Form Camera
+                   },
+                   child: Row(
+                     children: [
+                       Padding(
+                         padding: EdgeInsets.all(4.0),
+                         child: Icon(
+                           Icons.camera,
+                           color: Colors.purple,
+                         ),
+                       ),
+                       Text(
+                         'Camera',
+                         style: TextStyle(color: Colors.purple),
+                         )
+                     ],
+                   ),
+                 ),
+                 InkWell(
+                   onTap:(){
+                     //Create getFormGallery
+                   },
+                   child: Row(
+                     children: [
+                       Padding(
+                         padding: EdgeInsets.all(4.0),
+                         child: Icon(
+                           Icons.image,
+                           color: Colors.purple,
+                         ),
+                       ),
+                       Text(
+                         'Gallery',
+                         style: TextStyle(color: Colors.purple),
+                       )
+                     ],
+                   ),
+                 ),
+               ],
+             ),
+           );
+         }
+     );
+
+   }
 
   @override
   Widget build(BuildContext context) {
@@ -86,7 +144,9 @@ class _SignUpState extends State<SignUp>with TickerProviderStateMixin {
                       children: [
                         GestureDetector(
                           onTap: (){
-                            // create show image
+                            // create showImageDialog
+                            _showImageDialog();
+
                           },
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
@@ -124,7 +184,7 @@ class _SignUpState extends State<SignUp>with TickerProviderStateMixin {
                           },
                           style: const TextStyle(color: Colors.white),
                           decoration: const InputDecoration(
-                              hintText: 'Full Name /Company name',
+                              hintText: 'Full Name',
                               hintStyle: TextStyle(color: Colors.white),
                               enabledBorder: UnderlineInputBorder(
                                 borderSide: BorderSide(color: Colors.white),
