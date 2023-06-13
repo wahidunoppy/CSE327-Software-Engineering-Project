@@ -1,7 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:setp/user_state.dart';
 
-import 'LoginPage/login_screen.dart';
 
 void main() {
 
@@ -59,7 +59,7 @@ class MyApp extends StatelessWidget {
             scaffoldBackgroundColor: Colors.black,
             primarySwatch: Colors.blue,
           ),
-          home: Login(),
+          home: UserState(),
         );
       }
     );
