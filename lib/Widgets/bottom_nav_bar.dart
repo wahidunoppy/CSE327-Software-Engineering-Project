@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:setp/Jobs/job_screen.dart';
 import 'package:setp/Jobs/upload_job.dart';
-import 'package:setp/Search/profiile_company.dart';
+import 'package:setp/Search/profile_company.dart';
 import 'package:setp/Search/search_companies.dart';
 import 'package:setp/user_state.dart';
 
