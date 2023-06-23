@@ -1,14 +1,14 @@
 class Persistent
 {
   static List<String> jobCategoryList = [
-    'Architecture ans Construction',
+    'University Help',
     'Education and Training',
+    'Home tutoring',
+    'Online Tutoring',
+    'Language Tutoring',
+    'Package Tutoring',
     'Development -Programming',
-    'Business',
-    'Information Technology',
-    'Human Resources',
-    'Marketing',
-    'Design',
-    'Accounting',
+    'Development -Marketing',
+    'Development -Design',
   ];
 }
