@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -221,6 +219,7 @@ class _UploadJobNowState extends State<UploadJobNow> {
                 'jobCategory': _jobCategoryController.text,
                 'jobComments': [],
                 'recruitment':true,
+                'createdAt': Timestamp.now(),
                 'name': name,
                 'userImage': userImage,
                 'location': location,
@@ -256,6 +255,18 @@ class _UploadJobNowState extends State<UploadJobNow> {
     {
       print('Its not valid.');
     }
+   }
+
+   void getMyData() async
+   {
+     final DocumentSnapshot userDoc = await FirebaseFirestore.instance.collection('users').doc(FirebaseAuth.instance.currentUser!.uid)
+         .get();
+
+     setState(() {
+       name = userDoc.get('name');
+       userImage = userDoc.get('userImage');
+       location= userDoc.get('location');
+     });
    }
 
   @override

@@ -8,18 +8,18 @@ class JobWidget extends StatefulWidget {
   final String uploadedBy;
   final String userImage;
   final String name;
-  final String recuitment;
+  final bool recruitment;
   final String email;
   final String location;
 
-  const JobWidget({
+    const JobWidget({
     required this.jobTitle,
     required this.jobDescription,
     required this.jobId,
     required this.uploadedBy,
     required this.userImage,
     required this.name,
-    required this.recuitment,
+    required this.recruitment,
     required this.email,
     required this.location,
 });
